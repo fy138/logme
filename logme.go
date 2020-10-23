@@ -38,7 +38,7 @@ func NewLogMe(logfile string, loglevel int) *Logme {
 	lm.Logfile = logfile
 	lm.Loglevel = loglevel
 
-	if len(logfile) > 0 {
+	if len(logfile) == 0 {
 		lm.Logger = log.New(os.Stdout, "", log.LstdFlags|log.Lshortfile|log.LUTC)
 	} else {
 		writer, _ := rotatelogs.New(
