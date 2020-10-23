@@ -56,7 +56,6 @@ func (lm *Logme) Debug(v ...interface{}) {
 		return //不显示
 	}
 	lm.Logger.SetPrefix(setColor(DEBUG))
-	//lm.Logger.Output(2, fmt.Sprint(v...))
 	lm.Logger.Output(2, fmt.Sprint(v...))
 }
 func (lm *Logme) Debugf(format string, v ...interface{}) {
@@ -64,7 +63,6 @@ func (lm *Logme) Debugf(format string, v ...interface{}) {
 		return //不显示
 	}
 	lm.Logger.SetPrefix(setColor(DEBUG))
-	//lm.Logger.Output(2, fmt.Sprint(v...))
 	lm.Logger.Output(2, fmt.Sprintf(format, v...))
 }
 func (lm *Logme) Info(v ...interface{}) {
@@ -72,7 +70,6 @@ func (lm *Logme) Info(v ...interface{}) {
 		return //不显示
 	}
 	lm.Logger.SetPrefix(setColor(INFO))
-	//lm.Logger.Output(2, fmt.Sprint(v...))
 	lm.Logger.Output(2, fmt.Sprint(v...))
 }
 func (lm *Logme) Infof(format string, v ...interface{}) {
@@ -115,14 +112,16 @@ func (lm *Logme) Fatal(v ...interface{}) {
 		return //不显示
 	}
 	lm.Logger.SetPrefix(setColor(FATAL))
-	lm.Logger.Fatal(v...)
+	lm.Logger.Output(2, fmt.Sprint(v...))
+	os.Exit(1)
 }
 func (lm *Logme) Fatalf(format string, v ...interface{}) {
 	if lm.Loglevel > 4 {
 		return //不显示
 	}
 	lm.Logger.SetPrefix(setColor(FATAL))
-	lm.Logger.Fatalf(format, v...)
+	lm.Logger.Output(2, fmt.Sprintf(format, v...))
+	os.Exit(1)
 }
 func setColor(level int) string {
 	switch level {
