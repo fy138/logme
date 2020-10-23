@@ -1,7 +1,7 @@
 # logme
 a simple golang log base on golang  log module
 
-#Example
+# Example
 ```go
 //some code 
 Logger = logme.NewLogMe("", logme.DEBUG)
