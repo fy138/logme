@@ -28,3 +28,4 @@ func main() {
 	logger.Fatalf("this is %s", "fatal")
 }
 ```
+![image](https://raw.githubusercontent.com/fy138/logme/main/1.png)
