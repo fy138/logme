@@ -16,6 +16,16 @@ type Logme struct {
 }
 
 const (
+	colorBlack = uint8(iota + 90)
+	colorRed
+	colorGreen
+	colorYellow
+	colorBlue
+	colorBagenta
+	colorCyan
+	colorWhite
+)
+const (
 	DEBUG int = 1
 	INFO  int = 2
 	WARN  int = 3
@@ -45,7 +55,7 @@ func (lm *Logme) Debug(v ...interface{}) {
 	if lm.Loglevel > 1 {
 		return //不显示
 	}
-	lm.Logger.SetPrefix("[DEBUG]")
+	lm.Logger.SetPrefix(setColor(DEBUG))
 	//lm.Logger.Output(2, fmt.Sprint(v...))
 	lm.Logger.Output(2, fmt.Sprint(v...))
 }
@@ -53,7 +63,7 @@ func (lm *Logme) Debugf(format string, v ...interface{}) {
 	if lm.Loglevel > 1 {
 		return //不显示
 	}
-	lm.Logger.SetPrefix("[DEBUG]")
+	lm.Logger.SetPrefix(setColor(DEBUG))
 	//lm.Logger.Output(2, fmt.Sprint(v...))
 	lm.Logger.Output(2, fmt.Sprintf(format, v...))
 }
@@ -61,7 +71,7 @@ func (lm *Logme) Info(v ...interface{}) {
 	if lm.Loglevel > 2 {
 		return //不显示
 	}
-	lm.Logger.SetPrefix("[INFO]")
+	lm.Logger.SetPrefix(setColor(INFO))
 	//lm.Logger.Output(2, fmt.Sprint(v...))
 	lm.Logger.Output(2, fmt.Sprint(v...))
 }
@@ -69,48 +79,63 @@ func (lm *Logme) Infof(format string, v ...interface{}) {
 	if lm.Loglevel > 2 {
 		return //不显示
 	}
-	lm.Logger.SetPrefix("[INFO]")
+	lm.Logger.SetPrefix(setColor(INFO))
 	lm.Logger.Output(2, fmt.Sprintf(format, v...))
 }
 func (lm *Logme) Warn(v ...interface{}) {
 	if lm.Loglevel > 3 {
 		return //不显示
 	}
-	lm.Logger.SetPrefix("[WARN]")
+	lm.Logger.SetPrefix(setColor(WARN))
 	lm.Logger.Output(2, fmt.Sprint(v...))
 }
 func (lm *Logme) Warnf(format string, v ...interface{}) {
 	if lm.Loglevel > 3 {
 		return //不显示
 	}
-	lm.Logger.SetPrefix("[WARN]")
+	lm.Logger.SetPrefix(setColor(WARN))
 	lm.Logger.Output(2, fmt.Sprintf(format, v...))
 }
 func (lm *Logme) Error(v ...interface{}) {
 	if lm.Loglevel > 4 {
 		return //不显示
 	}
-	lm.Logger.SetPrefix("[ERROR]")
+	lm.Logger.SetPrefix(setColor(ERROR))
 	lm.Logger.Output(2, fmt.Sprint(v...))
 }
 func (lm *Logme) Errorf(format string, v ...interface{}) {
 	if lm.Loglevel > 4 {
 		return //不显示
 	}
-	lm.Logger.SetPrefix("[ERROR]")
+	lm.Logger.SetPrefix(setColor(ERROR))
 	lm.Logger.Output(2, fmt.Sprintf(format, v...))
 }
 func (lm *Logme) Fatal(v ...interface{}) {
 	if lm.Loglevel > 4 {
 		return //不显示
 	}
-	lm.Logger.SetPrefix("[FATAL]")
+	lm.Logger.SetPrefix(setColor(FATAL))
 	lm.Logger.Fatal(v...)
 }
 func (lm *Logme) Fatalf(format string, v ...interface{}) {
 	if lm.Loglevel > 4 {
 		return //不显示
 	}
-	lm.Logger.SetPrefix("[FATAL]")
+	lm.Logger.SetPrefix(setColor(FATAL))
 	lm.Logger.Fatalf(format, v...)
+}
+func setColor(level int) string {
+	switch level {
+	case ERROR:
+		return fmt.Sprintf("\x1b[%dm%s\x1b[0m", colorRed, "[ERROR]")
+	case WARN:
+		return fmt.Sprintf("\x1b[%dm%s\x1b[0m", colorYellow, "[WARN]")
+	case INFO:
+		return fmt.Sprintf("\x1b[%dm%s\x1b[0m", colorGreen, "[INFO]")
+	case DEBUG:
+		return fmt.Sprintf("\x1b[%dm%s\x1b[0m", colorBlue, "[DEBUG]")
+	default:
+		return fmt.Sprintf("\x1b[%dm%s\x1b[0m", colorBlack, "[FATAL]")
+	}
+
 }
