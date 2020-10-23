@@ -3,26 +3,28 @@ a simple golang log base on golang  log module
 
 # Example
 ```go
-//some code 
-Logger = logme.NewLogMe("", logme.DEBUG)
-or 
-Logger = logme.NewLogMe("./mylog.log", logme.INFO)
+package main
 
-//use
-Logger.Info("abc")
-//[INFO]2020/10/23 01:44:35 main.go:1: abc
-Logger.Errorf("you have error %s","abc")
-//[ERROR]2020/10/23 01:44:35 main.go:1: you have error abc
+import (
+	"github.com/fy138/logme"
+)
 
-//all mothod
-Logger.Debug
-Logger.Debugf
-Logger.Info
-Logger.Infof
-Logger.Warn
-Logger.Warnf
-Logger.Error
-Logger.Errorf
-Logger.Fatal
-Logger.Fatalf
+func main() {
+	logger := logme.NewLogMe("", logme.DEBUG)
+
+	logger.Debug("show debug")
+	logger.Debugf("this is %s", "debug")
+
+	logger.Info("my info")
+	logger.Infof("this is %s", "info")
+
+	logger.Warn("show warn")
+	logger.Warnf("this is %s", "warn")
+
+	logger.Error("show error")
+	logger.Errorf("this is %s", "error")
+
+	logger.Fatal("show fatal")
+	logger.Fatalf("this is %s", "fatal")
+}
 ```
