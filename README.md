@@ -1,5 +1,5 @@
 # logme
-a simple golang log base on golang  log module
+a simple golang log base on log module
 
 # Example
 ```go
